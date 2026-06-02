@@ -252,10 +252,6 @@
             background: #dc2626;
         }
 
-        .close-btn:active {
-            transform: scale(0.95);
-        }
-
         .viewer-body {
             height: calc(100% - 65px);
             width: 100%;
@@ -268,7 +264,6 @@
             border: none;
         }
 
-        /* No Results State */
         .no-results {
             display: none;
             text-align: center;
@@ -380,7 +375,7 @@
 
         <div class="book-card">
             <div>
-                <span class="book-tag">Economics</span>
+                --<span class="book-tag">Economics</span>
                 <h3 class="book-title">Intro to Microeconomics</h3>
                 <p class="book-desc">Analyzing market interactions, supply-demand balances, price ceilings, and consumer utility theory.</p>
             </div>
@@ -421,7 +416,6 @@
 </div>
 
 <script>
-    // Theme Management Script (Light/Dark Mode)
     function toggleTheme() {
         const currentTheme = document.body.getAttribute('data-theme');
         if (currentTheme === 'dark') {
@@ -431,7 +425,6 @@
         }
     }
 
-    // Live Instant Filtering Search Engine Script
     function filterBooks() {
         const input = document.getElementById('library-search').value.toLowerCase();
         const cards = document.getElementsByClassName('book-card');
@@ -458,8 +451,13 @@
         }
     }
 
-    // Modal Control System Script
     function openPDF(path, title) {
+        // Simple client checking to alert if the file path is a filler item
+        if(path === "physics.pdf" || path === "history.pdf" || path === "literature.pdf" || path === "chemistry.pdf" || path === "biology.pdf" || path === "geography.pdf" || path === "web_dev.pdf" || path === "economics.pdf" || path === "ecology.pdf" || path === "tok_guide.pdf" || path === "python_guide.pdf") {
+            alert("⚠️ Setup Check: You haven't linked or uploaded a file named '" + path + "' to your repository yet! Once uploaded, it will display perfectly here.");
+            return;
+        }
+
         document.getElementById('current-book-title').textContent = title;
         document.getElementById('pdf-iframe').src = path;
         
