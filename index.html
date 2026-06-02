@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnlinePDF | Student Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .book-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .book-meta {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Responsive Viewer Overlay */
+        #viewer-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+
+        .viewer-content {
+            width: 90%;
+            height: 90%;
+            margin: 2% auto;
+            background: white;
+            position: relative;
+            border-radius: 8px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>OnlinePDF Library</h1>
+    <p>Open-source knowledge for all students</p>
+</header>
+
+<div class="container">
+    <div class="book-grid">
+        <!-- Book 1 -->
+        <div class="book-card">
+            <div>
+                <div class="book-title">Python Programming</div>
+                <div class="book-meta">Subject: Computer Science</div>
+                <p>Learn the basics of OOP and clean code in Python.</p>
+            </div>
+            <a href="#" class="btn" onclick="openPDF('books/python_guide.pdf')">Read Online</a>
+        </div>
+
+        <!-- Book 2 -->
+        <div class="book-card">
+            <div>
+                <div class="book-title">Physics Fundamentals</div>
+                <div class="book-meta">Subject: Science</div>
+                <p>Core concepts of mechanics and thermodynamics.</p>
+            </div>
+            <a href="#" class="btn" onclick="openPDF('books/physics.pdf')">Read Online</a>
+        </div>
+
+        <!-- Add more book-cards here -->
+    </div>
+</div>
+
+<!-- PDF Viewer Modal -->
+<div id="viewer-container">
+    <div class="viewer-content">
+        <span class="close-btn" onclick="closePDF()">✕ Close</span>
+        <iframe id="pdf-iframe" src=""></iframe>
+    </div>
+</div>
+
+<script>
+    function openPDF(path) {
+        document.getElementById('pdf-iframe').src = path;
+        document.getElementById('viewer-container').style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Stop scrolling
+    }
+
+    function closePDF() {
+        document.getElementById('viewer-container').style.display = 'none';
+        document.getElementById('pdf-iframe').src = '';
+        document.body.style.overflow = 'auto'; // Enable scrolling
+    }
+</script>
+
+</body>
+</html>
