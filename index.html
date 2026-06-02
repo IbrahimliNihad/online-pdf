@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OnlinePDF | Student Library</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>OnlinePDF | Premium Student Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #2563eb;
@@ -14,102 +14,165 @@
             --text-muted: #64748b;
             --card-bg: #ffffff;
             --border: #e2e8f0;
+            --header-gradient: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            --search-bg: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --border: #334155;
+            --header-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            --search-bg: #1e293b;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
             margin: 0;
             padding: 0;
             line-height: 1.5;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         header {
-            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            background: var(--header-gradient);
             color: white;
-            padding: 3rem 1rem;
+            padding: 4rem 1rem 6rem 1rem;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            backdrop-filter: blur(4px);
+            transition: background 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.5rem;
-            font-weight: 600;
-            letter-spacing: -0.025em;
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
         }
 
         header p {
-            margin: 0.5rem 0 0 0;
-            font-size: 1.1rem;
+            margin: 0.75rem 0 0 0;
+            font-size: 1.2rem;
             opacity: 0.9;
+            font-weight: 400;
         }
 
         .container {
             max-width: 1200px;
-            margin: 3rem auto;
+            margin: -3rem auto 4rem auto;
             padding: 0 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-box {
+            background: var(--search-bg);
+            border: 1px solid var(--border);
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-muted);
         }
 
         .library-title {
             font-size: 1.5rem;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--border);
+            letter-spacing: -0.02em;
         }
 
         .book-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+            gap: 1.75rem;
         }
 
         .book-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 1.75rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s, border-color 0.25s;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
         .book-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.08);
-            border-color: #cbd5e1;
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
         }
 
         .book-tag {
             display: inline-block;
             font-size: 0.75rem;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.06em;
             color: var(--primary);
-            background: #eff6ff;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            margin-bottom: 1rem;
+            background: rgba(37, 99, 235, 0.1);
+            padding: 0.35rem 0.85rem;
+            border-radius: 8px;
+            margin-bottom: 1.25rem;
             width: fit-content;
         }
 
         .book-title {
-            font-size: 1.3rem;
-            font-weight: 600;
+            font-size: 1.35rem;
+            font-weight: 700;
             margin: 0 0 0.5rem 0;
             color: var(--text-main);
             line-height: 1.3;
+            letter-spacing: -0.01em;
         }
 
         .book-desc {
             font-size: 0.95rem;
             color: var(--text-muted);
             margin: 0 0 2rem 0;
+            line-height: 1.6;
         }
 
         .btn {
@@ -117,20 +180,25 @@
             background: var(--primary);
             color: white;
             text-decoration: none;
-            padding: 0.8rem;
-            border-radius: 8px;
+            padding: 0.9rem;
+            border-radius: 12px;
             text-align: center;
             font-weight: 600;
             font-size: 0.95rem;
-            transition: background-color 0.15s;
+            transition: background-color 0.2s, transform 0.1s;
             cursor: pointer;
             border: none;
             width: 100%;
             box-sizing: border-box;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
         }
 
         .btn:hover {
             background-color: var(--primary-hover);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
         }
 
         /* Immersive PDF Reader Panel */
@@ -143,44 +211,55 @@
             height: 100%;
             background: rgba(15, 23, 42, 0.98);
             z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.25s ease-in-out;
+        }
+
+        #viewer-container.active {
+            display: block;
+            opacity: 1;
         }
 
         .viewer-header {
-            height: 60px;
+            height: 65px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 2rem;
             background: #1e293b;
             color: white;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .viewer-title {
-            font-weight: 500;
-            font-size: 1.1rem;
+            font-weight: 600;
+            font-size: 1.15rem;
         }
 
         .close-btn {
             background: #ef4444;
             color: white;
             border: none;
-            padding: 0.5rem 1.2rem;
-            border-radius: 6px;
+            padding: 0.6rem 1.4rem;
+            border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
             font-size: 0.9rem;
-            transition: background 0.15s;
+            transition: background 0.15s, transform 0.1s;
         }
 
         .close-btn:hover {
             background: #dc2626;
         }
 
+        .close-btn:active {
+            transform: scale(0.95);
+        }
+
         .viewer-body {
-            height: calc(100% - 60px);
+            height: calc(100% - 65px);
             width: 100%;
-            background: #525659; /* Standard PDF reader background color */
+            background: #525659;
         }
 
         iframe {
@@ -188,18 +267,35 @@
             height: 100%;
             border: none;
         }
+
+        /* No Results State */
+        .no-results {
+            display: none;
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            padding: 4rem 0;
+            grid-column: 1 / -1;
+        }
     </style>
 </head>
 <body>
 
+<button class="theme-toggle" onclick="toggleTheme()">🌓 Toggle Mode</button>
+
 <header>
-    <h1>OnlinePDF Student Library</h1>
-    <p>Instant digital textbooks for quick reading and study</p>
+    <h1>OnlinePDF Premium Library</h1>
+    <p>A beautiful, focused space for student learning and resource discovery</p>
 </header>
 
 <div class="container">
-    <h2 class="library-title">Available Textbooks</h2>
-    <div class="book-grid">
+    <div class="search-box">
+        <input type="text" id="library-search" onkeyup="filterBooks()" placeholder="🔍 Search through textbooks by title, subject, or description...">
+    </div>
+
+    <h2 class="library-title">Explore Textbook Catalog</h2>
+    
+    <div class="book-grid" id="book-grid-container">
         
         <div class="book-card">
             <div>
@@ -225,7 +321,7 @@
                 <h3 class="book-title">Advanced Calculus</h3>
                 <p class="book-desc">Comprehensive formulas, derivatives, integrals, and coordinate geometry theorems.</p>
             </div>
-            <button class="btn" onclick="openPDF('math_book.pdf', 'Advanced Calculus')">Read Online</button>
+            <button class="btn" onclick="openPDF('math-class.pdf', 'Advanced Calculus')">Read Online</button>
         </div>
 
         <div class="book-card">
@@ -291,6 +387,26 @@
             <button class="btn" onclick="openPDF('economics.pdf', 'Intro to Microeconomics')">Read Online</button>
         </div>
 
+        <div class="book-card">
+            <div>
+                <span class="book-tag">Environmental Science</span>
+                <h3 class="book-title">Ecology & Climate</h3>
+                <p class="book-desc">An exploration of ecosystems, biological diversity, global warming, and green activism initiatives.</p>
+            </div>
+            <button class="btn" onclick="openPDF('ecology.pdf', 'Ecology & Climate')">Read Online</button>
+        </div>
+
+        <div class="book-card">
+            <div>
+                <span class="book-tag">Philosophy</span>
+                <h3 class="book-title">Theory of Knowledge</h3>
+                <p class="book-desc">An examination of critical thinking, shared perspectives, perspectives on truth, and who owns knowledge.</p>
+            </div>
+            <button class="btn" onclick="openPDF('tok_guide.pdf', 'Theory of Knowledge')">Read Online</button>
+        </div>
+
+        <div class="no-results" id="no-results-message">No matching textbooks found. Try a different search!</div>
+
     </div>
 </div>
 
@@ -305,17 +421,65 @@
 </div>
 
 <script>
+    // Theme Management Script (Light/Dark Mode)
+    function toggleTheme() {
+        const currentTheme = document.body.getAttribute('data-theme');
+        if (currentTheme === 'dark') {
+            document.body.removeAttribute('data-theme');
+        } else {
+            document.body.setAttribute('data-theme', 'dark');
+        }
+    }
+
+    // Live Instant Filtering Search Engine Script
+    function filterBooks() {
+        const input = document.getElementById('library-search').value.toLowerCase();
+        const cards = document.getElementsByClassName('book-card');
+        const noResults = document.getElementById('no-results-message');
+        let visibleCount = 0;
+
+        for (let i = 0; i < cards.length; i++) {
+            const title = cards[i].querySelector('.book-title').textContent.toLowerCase();
+            const tag = cards[i].querySelector('.book-tag').textContent.toLowerCase();
+            const desc = cards[i].querySelector('.book-desc').textContent.toLowerCase();
+
+            if (title.includes(input) || tag.includes(input) || desc.includes(input)) {
+                cards[i].style.display = "flex";
+                visibleCount++;
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+
+        if (visibleCount === 0) {
+            noResults.style.display = "block";
+        } else {
+            noResults.style.display = "none";
+        }
+    }
+
+    // Modal Control System Script
     function openPDF(path, title) {
         document.getElementById('current-book-title').textContent = title;
         document.getElementById('pdf-iframe').src = path;
-        document.getElementById('viewer-container').style.display = 'block';
-        document.body.style.overflow = 'hidden'; /* Freezes background page scroll */
+        
+        const viewer = document.getElementById('viewer-container');
+        viewer.style.display = 'block';
+        setTimeout(() => viewer.classList.add('active'), 10);
+        
+        document.body.style.overflow = 'hidden'; 
     }
 
     function closePDF() {
-        document.getElementById('viewer-container').style.display = 'none';
-        document.getElementById('pdf-iframe').src = '';
-        document.body.style.overflow = 'auto'; /* Unfreezes background page scroll */
+        const viewer = document.getElementById('viewer-container');
+        viewer.classList.remove('active');
+        
+        setTimeout(() => {
+            viewer.style.display = 'none';
+            document.getElementById('pdf-iframe').src = '';
+        }, 250);
+        
+        document.body.style.overflow = 'auto'; 
     }
 </script>
 
